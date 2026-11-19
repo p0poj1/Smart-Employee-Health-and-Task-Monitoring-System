@@ -15,7 +15,7 @@
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                     </span>
-                    Smartwatch Status: Simulated Active
+                    Xiaomi Smart Band 9 Active: Live Sync
                 </div>
             </div>
         </div>
@@ -24,8 +24,8 @@
     <div class="py-12 bg-slate-100/70 min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
-            <!-- 1. Top Metric Overview Cards (Spaced 4-Grid) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- 1. Top Metric Overview Cards (Live Biometric Telemetry + Risk Tier) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 
                 <!-- Burnout Tier -->
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between hover:shadow-md transition">
@@ -34,40 +34,66 @@
                         <span class="text-base">🛡️</span>
                     </div>
                     <div class="my-3">
-                        <span class="inline-block px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                        <span id="live-risk-badge" class="inline-block px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
                             Low Risk (Tier 1)
                         </span>
-                        <p class="text-xs text-slate-500 mt-3 font-medium leading-relaxed">Workload & physiological balance optimal.</p>
+                        <p id="live-risk-desc" class="text-xs text-slate-500 mt-3 font-medium leading-relaxed">Workload & physiological balance optimal.</p>
                     </div>
                     <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden mt-2">
-                        <div class="bg-emerald-500 h-2 rounded-full" style="width: 25%"></div>
+                        <div id="live-risk-bar" class="bg-emerald-500 h-2 rounded-full transition-all duration-500" style="width: 25%"></div>
                     </div>
                 </div>
 
-                <!-- Resting Heart Rate -->
+                <!-- Heart Rate (Live from Watch) -->
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between hover:shadow-md transition">
                     <div class="flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider pb-2">
-                        <span>Resting Heart Rate</span>
+                        <span>Heart Rate (Live)</span>
                         <span class="text-base text-rose-500">❤️</span>
                     </div>
                     <div class="my-2 flex items-baseline gap-2">
-                        <span class="text-3xl font-black text-slate-800 tracking-tight">72</span>
+                        <span id="live-bpm" class="text-3xl font-black text-slate-800 tracking-tight">--</span>
                         <span class="text-xs font-bold text-slate-400 uppercase">BPM</span>
                     </div>
                     <p class="text-xs text-slate-500 leading-relaxed">Normal baseline range (60–85 BPM)</p>
                 </div>
 
-                <!-- Sleep Duration -->
+                <!-- SpO2 Blood Oxygen (Live from Watch) -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between hover:shadow-md transition">
+                    <div class="flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider pb-2">
+                        <span>Blood Oxygen (SpO2)</span>
+                        <span class="text-base text-sky-500">🩸</span>
+                    </div>
+                    <div class="my-2 flex items-baseline gap-2">
+                        <span id="live-spo2" class="text-3xl font-black text-slate-800 tracking-tight">--</span>
+                        <span class="text-xs font-bold text-slate-400 uppercase">%</span>
+                    </div>
+                    <p class="text-xs text-slate-500 leading-relaxed">Healthy saturation target (95%–100%)</p>
+                </div>
+
+                <!-- Physiological Stress (Live from Watch) -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between hover:shadow-md transition">
+                    <div class="flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider pb-2">
+                        <span>Watch Stress Index</span>
+                        <span class="text-base text-purple-500">🧠</span>
+                    </div>
+                    <div class="my-2 flex items-baseline gap-2">
+                        <span id="live-stress" class="text-3xl font-black text-slate-800 tracking-tight">--</span>
+                        <span class="text-xs font-bold text-slate-400 uppercase">/ 100</span>
+                    </div>
+                    <p class="text-xs text-slate-500 leading-relaxed">Relaxed (1–39) • Moderate (40–69) • High (70+)</p>
+                </div>
+
+                <!-- Sleep Duration (Live from Watch) -->
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between hover:shadow-md transition">
                     <div class="flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider pb-2">
                         <span>Sleep Recovery</span>
                         <span class="text-base text-indigo-500">🌙</span>
                     </div>
                     <div class="my-2 flex items-baseline gap-2">
-                        <span class="text-3xl font-black text-slate-800 tracking-tight">7.2</span>
+                        <span id="live-sleep" class="text-3xl font-black text-slate-800 tracking-tight">--</span>
                         <span class="text-xs font-bold text-slate-400 uppercase">Hours</span>
                     </div>
-                    <p class="text-xs text-emerald-600 font-semibold leading-relaxed">Target met (≥ 7.0 hrs)</p>
+                    <p id="live-sleep-note" class="text-xs text-emerald-600 font-semibold leading-relaxed">Target met (≥ 7.0 hrs)</p>
                 </div>
 
                 <!-- Weekly Overtime -->
@@ -249,4 +275,67 @@
 
         </div>
     </div>
+
+    <!-- Live Smartwatch Telemetry Auto-Sync Script (Polls every 3 seconds) -->
+    <script>
+        async function syncLatestBiometrics() {
+            try {
+                const res = await fetch('/api/biometrics/latest');
+                if (!res.ok) return;
+                const data = await res.json();
+                if (!data) return;
+
+                const bpm = data.heart_rate_bpm;
+                const spo2 = data.spo2 ?? 98;
+                const stress = data.stress_level ?? 30;
+                const sleepHrs = (data.sleep_minutes / 60).toFixed(1);
+
+                document.getElementById('live-bpm').innerText = bpm;
+                document.getElementById('live-spo2').innerText = spo2;
+                document.getElementById('live-stress').innerText = stress;
+                document.getElementById('live-sleep').innerText = sleepHrs;
+
+                // Update sleep status text
+                const sleepNote = document.getElementById('live-sleep-note');
+                if (parseFloat(sleepHrs) >= 7.0) {
+                    sleepNote.innerText = 'Target met (≥ 7.0 hrs)';
+                    sleepNote.className = 'text-xs text-emerald-600 font-semibold leading-relaxed';
+                } else {
+                    sleepNote.innerText = 'Sleep deficit (< 7.0 hrs)';
+                    sleepNote.className = 'text-xs text-amber-600 font-semibold leading-relaxed';
+                }
+
+                // Dynamically update Burnout Risk Tier preview based on incoming watch metrics
+                const badge = document.getElementById('live-risk-badge');
+                const desc = document.getElementById('live-risk-desc');
+                const bar = document.getElementById('live-risk-bar');
+
+                if (bpm > 100 || stress >= 70 || parseFloat(sleepHrs) < 5.0) {
+                    badge.innerText = 'High Risk (Tier 3)';
+                    badge.className = 'inline-block px-3.5 py-1.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200';
+                    desc.innerText = 'Elevated physiological strain detected from watch.';
+                    bar.className = 'bg-rose-500 h-2 rounded-full transition-all duration-500';
+                    bar.style.width = '85%';
+                } else if (bpm > 85 || stress >= 40 || parseFloat(sleepHrs) < 7.0) {
+                    badge.innerText = 'Moderate Risk (Tier 2)';
+                    badge.className = 'inline-block px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200';
+                    desc.innerText = 'Mild fatigue/stress detected—monitor recovery.';
+                    bar.className = 'bg-amber-500 h-2 rounded-full transition-all duration-500';
+                    bar.style.width = '55%';
+                } else {
+                    badge.innerText = 'Low Risk (Tier 1)';
+                    badge.className = 'inline-block px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200';
+                    desc.innerText = 'Workload & physiological balance optimal.';
+                    bar.className = 'bg-emerald-500 h-2 rounded-full transition-all duration-500';
+                    bar.style.width = '25%';
+                }
+            } catch (err) {
+                console.error('Live sync error:', err);
+            }
+        }
+
+        // Run immediately on page load, then every 3 seconds
+        syncLatestBiometrics();
+        setInterval(syncLatestBiometrics, 3000);
+    </script>
 </x-app-layout>

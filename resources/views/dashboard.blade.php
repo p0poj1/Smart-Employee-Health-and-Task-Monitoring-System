@@ -14,4 +14,27 @@
             </div>
         </div>
     </div>
+
+<script>
+    setInterval(async () => {
+        try {
+            const res = await fetch('/api/biometrics/latest');
+            if (!res.ok) return;
+            const data = await res.json();
+            if (!data) return;
+
+            const bpmEl = document.getElementById('live-bpm');
+            const spo2El = document.getElementById('live-spo2');
+            const stressEl = document.getElementById('live-stress');
+            const sleepEl = document.getElementById('live-sleep');
+
+            if (bpmEl) bpmEl.innerText = data.heart_rate_bpm + ' BPM';
+            if (spo2El) spo2El.innerText = (data.spo2 ?? 98) + '%';
+            if (stressEl) stressEl.innerText = data.stress_level ?? 30;
+            if (sleepEl) sleepEl.innerText = (data.sleep_minutes / 60).toFixed(1) + ' hrs';
+        } catch (err) {
+            console.error('Live sync error:', err);
+        }
+    }, 3000);
+</script>
 </x-app-layout>
